@@ -7,4 +7,4 @@ export const checkImageURL = (url) => {
 };
 
 
-export const ApiUrl = 'https://user-amal-thundiyil.cloud.okteto.net/api';
+export const ApiUrl = 'https://user-varun-dhruv.cloud.okteto.net/api';

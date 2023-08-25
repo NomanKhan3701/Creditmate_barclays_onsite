@@ -6,10 +6,10 @@ const initialState = {
         name: "",
         age: 19,
         id: null,
-        id: "null",
+        // id: "null",
         coins: 0,
         token: null,
-        token: "null",
+        // token: "null",
         tags: []
     },
     offerList: [],

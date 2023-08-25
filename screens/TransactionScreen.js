@@ -19,7 +19,7 @@ const TransactionScreen = () => {
 
     const getTransactions = async () => {
         try {
-            const res = await axios.get(`https://user-amal-thundiyil.cloud.okteto.net/api/transactions/user/${user.id}`);
+            const res = await axios.get(`https://user-varun-dhruv.cloud.okteto.net/api/transactions/user/${user.id}`);
             setData(res.data)
         } catch (e) {
             console.log(e)

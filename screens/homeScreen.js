@@ -20,7 +20,7 @@ import ManageMoney from '../components/ManageMoney';
 import Refer from '../components/Refer';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const HomeScreen = ({ navigation, setHideTab, setBottomPerc }) => {
+const HomeScreen = ({ navigation }) => {
     return (
 
         <View style={styles.container}>
@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation, setHideTab, setBottomPerc }) => {
                 <Navbar />
                 <View style={styles.body}>
                     <CarouselOffer />
-                    <NearbyOffers navigation={navigation} setHideTab={setHideTab} setBottomPerc={setBottomPerc} />
+                    <NearbyOffers navigation={navigation} />
                     <Text style={styles.header}>Deals and cashbacks</Text>
                     <DealAndCashback navigation={navigation} />
                     <Text style={styles.header}>Manage your money</Text>

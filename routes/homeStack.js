@@ -11,7 +11,6 @@ import GeoLocationScreen from "../screens/GeoLocationScreen";
 import RedeemScreen from "../screens/RedeemScreen";
 import SettingScreen from "../screens/SettingScreen";
 import TransactionScreen from "../screens/TransactionScreen";
-import HomeScreenWithSheet from "../screens/HomeScreenWithSheet";
 
 const screens = {
   Homepage: {
@@ -58,12 +57,6 @@ const screens = {
   },
   HomeScreen: {
     screen: HomeScreen,
-    navigationOptions: {
-      headerShown: false,
-    },
-  },
-  HomeScreenWithSheet: {
-    screen: HomeScreenWithSheet,
     navigationOptions: {
       headerShown: false,
     },

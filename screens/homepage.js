@@ -36,11 +36,9 @@ import { ApiUrl } from "../utils";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from '../store/actions'
-import HomeScreenWithSheet from "./HomeScreenWithSheet";
 
 export default function Home({ navigation }) {
   const [paymentModal, setPaymentModal] = React.useState(false);
-  const [hideTab, setHideTab] = React.useState(false);
   const dispatch = useDispatch();
   const user = useSelector(state => state.main.user);
   const [paymentData, setPaymentData] = React.useState({
@@ -54,7 +52,7 @@ export default function Home({ navigation }) {
       type: "ant",
       icon: "home",
       name: "home",
-      screen: <HomeScreenWithSheet navigation={navigation} hideTab={hideTab} setHideTab={setHideTab} options={{ headerShown: false }} />,
+      screen: <HomeScreen navigation={navigation} options={{ headerShown: false }} />,
       bottomHide: false,
     },
     {
@@ -161,8 +159,7 @@ export default function Home({ navigation }) {
   };
 
   const renderTabBar = ({ routeName, selectedTab, navigate }) => {
-    const bottomHide = routes.find((item) => item.name === routeName).bottomHide || hideTab;
-
+    const bottomHide = routes.find((item) => item.name === routeName).bottomHide;
     return (
       <TouchableOpacity
         onPress={() => {
@@ -311,30 +308,26 @@ export default function Home({ navigation }) {
           </View>
         </View>
       </Modal>
-
       <CurvedBottomBarExpo.Navigator
         type="DOWN"
-        style={styles.bottomBar + ` ${hideTab ? "hide" : ""}`}
+        style={styles.bottomBar}
         shadowStyle={styles.shawdow}
-        height={hideTab ? 0 : 55}
-        circleWidth={hideTab ? 0 : 50}
-        bgColor={hideTab ? "transparent" : "white"}
+        height={55}
+        circleWidth={50}
+        bgColor="white"
         initialRouteName="home"
         borderTopLeftRight
         renderCircle={({ selectedTab, navigate }) => (
-          hideTab ? null :
-            <Animated.View style={styles.btnCircleUp}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => { setPaymentModal(true) }}
-              >
-                <Text style={styles.pay}>Pay</Text>
-              </TouchableOpacity>
-            </Animated.View>
+          <Animated.View style={styles.btnCircleUp}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => { setPaymentModal(true) }}
+            >
+              <Text style={styles.pay}>Pay</Text>
+            </TouchableOpacity>
+          </Animated.View>
         )}
-        tabBar={!hideTab ? renderTabBar : () => {
-          return null;
-        }}
+        tabBar={renderTabBar}
       >
         {
           routes.map((route, index) => {
@@ -383,9 +376,6 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   bottomBar: {},
-  hide: {
-    display: "none",
-  },
   btnCircleUp: {
     width: 60,
     height: 60,
@@ -413,7 +403,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    zIndex: -1,
   },
   img: {
     width: 30,

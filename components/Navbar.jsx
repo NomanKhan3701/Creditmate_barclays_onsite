@@ -21,11 +21,11 @@ const Navbar = ({ navigation }) => {
             color="black"
             style={styles.icon}
           />
-          <Text style={styles.coinsText}>{user.coins || 4435}</Text>
+          <Text style={styles.coinsText}>{user.coins}</Text>
         </View>
         <TouchableOpacity onPress={() => {}}>
           <Image
-            source={require("../assets/images/Noman.jpeg")}
+            source={require("../assets/images/avatar.jpg")}
             style={styles.profile}
           />
         </TouchableOpacity>

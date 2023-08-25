@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, Switch } from 'react-native'
 import { COLORS, FONT, SIZES, SHADOWS } from "../constants";
-import profile from '../assets/images/kemal.jpg'
+import profile from '../assets/images/avatar.jpg'
 import Colors from '../constants/Colors';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { AntDesign } from '@expo/vector-icons';
