@@ -11,26 +11,78 @@ import { StackActions, withNavigation } from '@react-navigation/native';
 import MapView, { Circle, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import Map from '../components/Map';
+import { useSelector } from 'react-redux';
 export default GeoLocationScreen = ({ navigation }) => {
   const snapPoints = useMemo(() => ['5%', '85%'], []);
-  const CustomHandler = useCallback(() => {
+  const CustomHandler = useCallback((e) => {
   }, []);
   const [pin, setPin] = useState({
-    latitude: 19.1231681,
-    longitude: 72.836112,
+    latitude: 18.5546,
+    longitude: 73.958,
   });
 
-  // useEffect (() => {
-  //   navigator.geolocation.getCurrentPosition((position) => {
-  //     this.setState({position: {longitude: position.longitude, latitude: position.latitude}});
-  // }, (error) => {
-  //     alert(JSON.stringify(error))
-  // }, {
-  //     enableHighAccuracy: true,
-  //     timeout: 20000,
-  //     maximumAge: 1000
-  // });
-  // }, [])
+  const offerList = useSelector((state) => state.main.offerList);
+  const [filterData, useFilterData] = useState([
+    {
+      name: "Food",
+      active: true,
+    },
+    {
+      name: "Shopping",
+      active: false,
+    },
+    {
+      name: "Hotel",
+      active: false,
+    },
+    {
+      name: "Travel",
+      active: false,
+    },
+    {
+      name: "Grocery",
+      active: false,
+    },
+    {
+      name: "Gaming",
+      active: false,
+    },
+  ]);
+
+  const [currOfferList, setCurrOfferList] = useState([]);
+
+  useEffect(() => {
+    getNewOffers();
+  }, [filterData, offerList]);
+
+  const getNewOffers = (random) => {
+    const currName = filterData.find((item) => item.active === true).name;
+    const shuffledOfferList = random ? shuffle(offerList) : offerList;
+    const offers = shuffledOfferList.filter((item) => {
+      return item.tag === currName.toLocaleLowerCase();
+    });
+    setCurrOfferList(offers);
+  };
+
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
 
   const handleBack = () => {
     navigation.navigate("Home");
@@ -38,7 +90,7 @@ export default GeoLocationScreen = ({ navigation }) => {
 
   const BackgroundMap = useCallback(() => {
     return (
-      <Map pin={pin} setPin={setPin}></Map>
+      <Map pin={pin} setPin={setPin} getNewOffers={getNewOffers}></Map>
     );
   }, []);
 
@@ -52,7 +104,12 @@ export default GeoLocationScreen = ({ navigation }) => {
     >
       <View style={styles.offerContainer}>
         <View style={styles.tab} />
-        <MapOffer pin={pin} />
+        <MapOffer pin={pin}
+          currOfferList={currOfferList}
+          filterData={filterData}
+          useFilterData={useFilterData}
+          getNewOffers={getNewOffers}
+        />
       </View>
 
     </BottomSheet>

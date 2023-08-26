@@ -36,9 +36,12 @@ import { ApiUrl } from "../utils";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from '../store/actions'
+import OfferDetails from "../components/OfferDetails";
 
 export default function Home({ navigation }) {
   const [paymentModal, setPaymentModal] = React.useState(false);
+  const [offerModal, setOfferModal] = React.useState(false);
+  const [currOffer, setCurrOffer] = React.useState(null);
   const dispatch = useDispatch();
   const user = useSelector(state => state.main.user);
   const [paymentData, setPaymentData] = React.useState({
@@ -52,7 +55,7 @@ export default function Home({ navigation }) {
       type: "ant",
       icon: "home",
       name: "home",
-      screen: <HomeScreen navigation={navigation} options={{ headerShown: false }} />,
+      screen: <HomeScreen navigation={navigation} options={{ headerShown: false }} setOfferModal={setOfferModal} setCurrOffer={setCurrOffer} />,
       bottomHide: false,
     },
     {
@@ -306,6 +309,17 @@ export default function Home({ navigation }) {
               <Text style={styles.payBtnText}>Pay the amount</Text>
             </TouchableOpacity>
           </View>
+        </View>
+      </Modal>
+      <Modal
+        animationType="slide"
+        visible={offerModal}
+      >
+        <View style={styles.modalContainer}>
+          <TouchableOpacity style={{ marginLeft: "auto", marginTop: 15, marginRight: 15 }} onPress={() => setOfferModal(false)}>
+            <AntDesign name="close" size={24} color="black" />
+          </TouchableOpacity>
+          <OfferDetails offer={currOffer} />
         </View>
       </Modal>
       <CurvedBottomBarExpo.Navigator
