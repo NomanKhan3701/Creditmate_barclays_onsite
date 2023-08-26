@@ -179,6 +179,7 @@ export default function Home({ navigation }) {
   useEffect(() => {
     getOfferList();
     getCouponsList();
+    getTransactions();
   }, [])
 
   const getOfferList = async () => {
@@ -196,6 +197,15 @@ export default function Home({ navigation }) {
       dispatch(actions.setCouponsList(res.data));
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  const getTransactions = async () => {
+    try {
+      const res = await axios.get(`https://user-varun-dhruv.cloud.okteto.net/api/transactions/user/${user.id}`);
+      dispatch(actions.setTransactions(res.data))
+    } catch (e) {
+      console.log(e)
     }
   }
 

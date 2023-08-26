@@ -21,8 +21,16 @@ const setCouponsList = (couponsList) => {
     };
 }
 
+const setTransactionList = (transactionList) => {
+    return {
+        type: actionTypes.SET_TRANSACTION_LIST,
+        transactionList,
+    };
+}
+
 export {
     setUser,
     setOfferList,
     setCouponsList,
+    setTransactionList,
 };

@@ -14,6 +14,7 @@ const initialState = {
     },
     offerList: [],
     couponsList: [],
+    transactionList: []
 };
 
 export const updateObject = (oldObject, updatedProperties) => {
@@ -36,6 +37,10 @@ export const setCouponsList = (state, action) => {
     return updateObject(state, { couponsList: action.couponsList });
 }
 
+export const setTransactionList = (state, action) => {
+    return updateObject(state, { transactionList: action.transactionList });
+}
+
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_USER:
@@ -44,6 +49,8 @@ const authReducer = (state = initialState, action) => {
             return setOfferList(state, action);
         case actionTypes.SET_COUPONS_LIST:
             return setCouponsList(state, action);
+        case actionTypes.SET_TRANSACTION_LIST:
+            return setTransactionList(state, action);
         default:
             return state;
     }

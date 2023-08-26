@@ -12,8 +12,10 @@ const TransactionScreen = () => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const user = useSelector(state => state.main.user);
+    const transactionList = useSelector(state => state.main.transactionList) || [];
 
     useEffect(() => {
+        setData(transactionList)
         getTransactions()
     }, [])
 
@@ -24,7 +26,6 @@ const TransactionScreen = () => {
         } catch (e) {
             console.log(e)
         }
-
     }
 
     return (
