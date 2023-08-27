@@ -60,7 +60,9 @@ export default GeoLocationScreen = ({ navigation }) => {
 
   const getNewOffers = (random, currGeoFencesActiveIdx = []) => {
     const currName = filterData.find((item) => item.active === true).name;
-    let shuffledOfferList = random ? shuffle(offerList) : offerList;
+    let shuffledOfferList = (random ? shuffle(offerList) : offerList).filter((item) => {
+      return item.tag?.toLowerCase() === currName?.toLocaleLowerCase();
+    });
 
     // if currGeoFencesActiveIdx is not empty then update the shuffledOfferList according to the currGeoFencesActiveIdx in the allGeoFences
     if (currGeoFencesActiveIdx.length > 0) {
@@ -70,7 +72,7 @@ export default GeoLocationScreen = ({ navigation }) => {
 
         currGeoFence.comapnies.forEach((company) => {
           const currOffer = shuffledOfferList.find((offer) => {
-            return offer.company === company;
+            return offer.company?.toLowerCase() === company?.toLowerCase();
           });
           currOffer && currOfferList.push(currOffer);
         });
@@ -80,14 +82,11 @@ export default GeoLocationScreen = ({ navigation }) => {
       shuffledOfferList = [...currOfferList, ...shuffledOfferList];
       shuffledOfferList = shuffledOfferList.filter(
         (item, index, self) =>
-          index === self.findIndex((t) => t.company === item.company)
+          index === self.findIndex((t) => t.company?.toLowerCase() === item.company?.toLowerCase())
       );
     }
 
-    const offers = shuffledOfferList.filter((item) => {
-      return item.tag === currName.toLocaleLowerCase();
-    });
-    setCurrOfferList(offers);
+    setCurrOfferList(shuffledOfferList);
   };
 
   function shuffle(array) {

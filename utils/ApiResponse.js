@@ -5,8 +5,8 @@ export const allGeoFences = [
         radius: 400,
         currNotifyIdx: 0,
         comapnies: [
-            "Papa John's",
-            "Domino's",
+            "Mannu fish store",
+            "Puma store",
         ],
         notifications: [
             {
@@ -29,8 +29,9 @@ export const allGeoFences = [
         radius: 300,
         currNotifyIdx: 0,
         comapnies: [
-            "Walmart",
-            "McDonald's",
+            "Domino's",
+            "Chicago Pizza",
+            "Cake Craft"
         ],
         notifications: [
             {
@@ -45,7 +46,9 @@ export const allGeoFences = [
         radius: 450,
         currNotifyIdx: 0,
         comapnies: [
-            "Buger King",
+            "Shiv sagar",
+            "The Chef Job",
+            "Starbucks",
         ],
         notifications: [
             {
@@ -60,7 +63,9 @@ export const allGeoFences = [
         radius: 450,
         currNotifyIdx: 0,
         comapnies: [
-            "Starbucks",
+
+            "Big basket",
+            "The Chef Job"
         ],
         notifications: [
             {
@@ -75,7 +80,10 @@ export const allGeoFences = [
         radius: 450,
         currNotifyIdx: 0,
         comapnies: [
-            "Subway"
+
+            "Sambar aromas of south",
+            "Kiwa restaurant",
+            "The Chef Job"
         ],
         notifications: [
             {

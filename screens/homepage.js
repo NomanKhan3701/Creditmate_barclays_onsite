@@ -185,7 +185,24 @@ export default function Home({ navigation }) {
   const getOfferList = async () => {
     try {
       const res = await axios.get(`https://offers-varun-dhruv.cloud.okteto.net/api/offers`);
-      dispatch(actions.setOfferList(res.data.Offers));
+
+      // check the tag in the offer if the tag has , then split it and create a new offer for each tag
+      const offers = [];
+      res.data.Offers.forEach((item) => {
+        if (item.tag?.includes(", ")) {
+          const tags = item.tag.split(", ");
+          tags.forEach((tag) => {
+            offers.push({
+              ...item,
+              tag: tag.trim()
+            })
+          })
+        } else {
+          offers.push(item);
+        }
+      })
+
+      dispatch(actions.setOfferList(offers));
     } catch (e) {
       console.log(e);
     }
