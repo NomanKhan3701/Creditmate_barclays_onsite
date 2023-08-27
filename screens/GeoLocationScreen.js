@@ -12,6 +12,8 @@ import MapView, { Circle, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import Map from '../components/Map';
 import { useSelector } from 'react-redux';
+import { allGeoFences } from "../utils/ApiResponse";
+
 export default GeoLocationScreen = ({ navigation }) => {
   const snapPoints = useMemo(() => ['5%', '85%'], []);
   const CustomHandler = useCallback((e) => {
@@ -20,6 +22,7 @@ export default GeoLocationScreen = ({ navigation }) => {
     latitude: 18.5546,
     longitude: 73.958,
   });
+
 
   const offerList = useSelector((state) => state.main.offerList);
   const [filterData, useFilterData] = useState([
@@ -55,9 +58,32 @@ export default GeoLocationScreen = ({ navigation }) => {
     getNewOffers();
   }, [filterData, offerList]);
 
-  const getNewOffers = (random) => {
+  const getNewOffers = (random, currGeoFencesActiveIdx = []) => {
     const currName = filterData.find((item) => item.active === true).name;
-    const shuffledOfferList = random ? shuffle(offerList) : offerList;
+    let shuffledOfferList = random ? shuffle(offerList) : offerList;
+
+    // if currGeoFencesActiveIdx is not empty then update the shuffledOfferList according to the currGeoFencesActiveIdx in the allGeoFences
+    if (currGeoFencesActiveIdx.length > 0) {
+      const currOfferList = [];
+      currGeoFencesActiveIdx.forEach((item) => {
+        const currGeoFence = allGeoFences[item];
+
+        currGeoFence.comapnies.forEach((company) => {
+          const currOffer = shuffledOfferList.find((offer) => {
+            return offer.company === company;
+          });
+          currOffer && currOfferList.push(currOffer);
+        });
+      });
+
+      // place the currOfferList at the top of the shuffledOfferList and remove the duplicates
+      shuffledOfferList = [...currOfferList, ...shuffledOfferList];
+      shuffledOfferList = shuffledOfferList.filter(
+        (item, index, self) =>
+          index === self.findIndex((t) => t.company === item.company)
+      );
+    }
+
     const offers = shuffledOfferList.filter((item) => {
       return item.tag === currName.toLocaleLowerCase();
     });
@@ -90,7 +116,7 @@ export default GeoLocationScreen = ({ navigation }) => {
 
   const BackgroundMap = useCallback(() => {
     return (
-      <Map pin={pin} setPin={setPin} getNewOffers={getNewOffers}></Map>
+      <Map pin={pin} setPin={setPin} getNewOffers={getNewOffers} ></Map>
     );
   }, []);
 

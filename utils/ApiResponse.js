@@ -4,6 +4,10 @@ export const allGeoFences = [
         longitude: 73.94,
         radius: 400,
         currNotifyIdx: 0,
+        comapnies: [
+            "Papa John's",
+            "Domino's",
+        ],
         notifications: [
             {
                 title: "Offer Near You 1",
@@ -24,6 +28,10 @@ export const allGeoFences = [
         longitude: 73.948,
         radius: 300,
         currNotifyIdx: 0,
+        comapnies: [
+            "Walmart",
+            "McDonald's",
+        ],
         notifications: [
             {
                 title: "Wimbeldon tickets",
@@ -36,6 +44,9 @@ export const allGeoFences = [
         longitude: 73.96,
         radius: 450,
         currNotifyIdx: 0,
+        comapnies: [
+            "Buger King",
+        ],
         notifications: [
             {
                 title: "Want to grab a coffee 1",
@@ -48,6 +59,9 @@ export const allGeoFences = [
         longitude: 73.96,
         radius: 450,
         currNotifyIdx: 0,
+        comapnies: [
+            "Starbucks",
+        ],
         notifications: [
             {
                 title: "Want to grab a coffee 2",
@@ -60,6 +74,9 @@ export const allGeoFences = [
         longitude: 73.956,
         radius: 450,
         currNotifyIdx: 0,
+        comapnies: [
+            "Subway"
+        ],
         notifications: [
             {
                 title: "Want to grab a coffee 3",

@@ -6,6 +6,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 
+
 const MapOffer = ({ pin, filterData, useFilterData, currOfferList }) => {
   const handleItemChange = (item) => {
     const newData = filterData.map((dataItem) => {
@@ -18,8 +19,6 @@ const MapOffer = ({ pin, filterData, useFilterData, currOfferList }) => {
     });
     useFilterData(newData);
   };
-
-
 
   return (
     <View style={styles.NearbyOffers}>

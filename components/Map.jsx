@@ -118,6 +118,7 @@ const BackgroundMap = ({ pin, setPin, getNewOffers }) => {
   const notificationListener = useRef();
   const responseListener = useRef();
   const [geoFences, setGeoFences] = useState(allGeoFences);
+  const [currGeoFencesActiveIdx, setCurrGeoFencesActiveIdx] = useState([]);
 
   const pushNotifyMe = async (notify) => {
     await sendPushNotification(expoPushToken, notify);
@@ -194,13 +195,15 @@ const BackgroundMap = ({ pin, setPin, getNewOffers }) => {
           onDragEnd={(e) => {
             console.log("dragEnd", e.nativeEvent.coordinate);
 
-            getNewOffers(true);
             setPin({
               latitude: e.nativeEvent.coordinate.latitude,
               longitude: e.nativeEvent.coordinate.longitude,
             });
             let anyIntersecting = false;
-            const newGeofences = geoFences.map((geoFence) => {
+
+            // add the elements according to the length of the geoFences array
+            const currFencesActiveIdx = [...Array(geoFences.length).keys()];
+            const newGeofences = geoFences.map((geoFence, index) => {
               let dist = getDistanceFromLatLonInKm(
                 geoFence.latitude,
                 geoFence.longitude,
@@ -209,18 +212,25 @@ const BackgroundMap = ({ pin, setPin, getNewOffers }) => {
               );
               if (dist < geoFence.radius) {
                 anyIntersecting = true;
+                !currFencesActiveIdx.includes(index) &&
+                  currFencesActiveIdx.push(index);
                 return {
                   ...geoFence,
                   intersecting: true,
                 };
               } else {
+                currFencesActiveIdx.splice(
+                  currFencesActiveIdx.indexOf(index),
+                  1
+                );
                 return {
                   ...geoFence,
                   intersecting: false,
                 };
               }
             });
-
+            setCurrGeoFencesActiveIdx(currFencesActiveIdx);
+            getNewOffers(true, currFencesActiveIdx);
             // get the top 2 offers and pushNotifyMe using the newGeofences array and notifyCounter if anyIntersecting is true
             if (anyIntersecting) {
               let notifyCount = 0;
