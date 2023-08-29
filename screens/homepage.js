@@ -37,6 +37,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from '../store/actions'
 import OfferDetails from "../components/OfferDetails";
+import { coupons } from "../utils/ApiResponse";
 
 export default function Home({ navigation }) {
   const [paymentModal, setPaymentModal] = React.useState(false);
@@ -186,6 +187,8 @@ export default function Home({ navigation }) {
     try {
       const res = await axios.get(`https://offers-varun-dhruv.cloud.okteto.net/api/offers`);
 
+      console.log(res.data.Offers);
+
       // check the tag in the offer if the tag has , then split it and create a new offer for each tag
       const offers = [];
       res.data.Offers.forEach((item) => {
@@ -210,8 +213,8 @@ export default function Home({ navigation }) {
 
   const getCouponsList = async () => {
     try {
-      const res = await axios.get(`https://user-varun-dhruv.cloud.okteto.net/api/coupons`);
-      dispatch(actions.setCouponsList(res.data));
+      // const res = await axios.get(`https://user-varun-dhruv.cloud.okteto.net/api/coupons`);
+      dispatch(actions.setCouponsList(coupons));
     } catch (e) {
       console.log(e);
     }

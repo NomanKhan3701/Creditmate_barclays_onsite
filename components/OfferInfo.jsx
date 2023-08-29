@@ -34,7 +34,7 @@ const OfferInfo = ({ setHideTab, setBottomPerc }) => {
       <Text style={styles.subTitle}>Details</Text>
       <Text style={styles.subText}>
         You get an extra 5% off and a Rs.100 cashback when you buy sunglasses
-        using a Barclay card.
+        using a Credit card.
       </Text>
       <TouchableOpacity
         style={styles.checkoutBtn}

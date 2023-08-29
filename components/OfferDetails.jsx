@@ -31,7 +31,7 @@ const OfferDetails = ({ offer }) => {
       <Text style={styles.sub_head}>Details</Text>
       <Text style={styles.desc}>
         You get an extra 5% off and a Rs. 100 cashback when you make a purchase
-        using a Barclay card.
+        using a Credit card.
       </Text>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Explore now</Text>
