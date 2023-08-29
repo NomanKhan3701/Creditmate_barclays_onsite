@@ -5,10 +5,13 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Navbar from "../components/Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../store/actions/index";
 
 export default function RedeemScreen({ navigation, coins, setCoins }) {
   const couponsList = useSelector((state) => state.main.couponsList);
+  const user = useSelector((state) => state.main.user);
+  const dispatch = useDispatch();
   const [filterData, setFilterData] = useState([
     {
       name: "Food",
@@ -61,6 +64,12 @@ export default function RedeemScreen({ navigation, coins, setCoins }) {
     const newOfferData = [...currOfferList];
     const index = newOfferData.indexOf(item);
     newOfferData[index].claimed = !newOfferData[index].claimed;
+    dispatch(
+      actions.setUser({
+        ...user,
+        coins: user.coins - item.coin,
+      })
+    );
     setCurrOfferList(newOfferData);
   };
 
